@@ -1,0 +1,86 @@
+.conteudo-principal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2vw
+}
+
+form {
+background-color: #f8f9fa;
+padding: 3vw;
+border-radius: 10px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 1vw
+}
+
+input[type="text"], input[type="number"], select {
+background-color: #fffbfb;
+padding: 0.25vw;
+border: none;
+border-radius: 10px;
+color: #1a1a1a
+}
+
+input[type="submit"] {
+background-color: #e8e8e8;
+border-radius: 10px;
+width: 6vw;
+padding:0.15vw
+}
+
+.erros {
+    padding: 2vw;
+    border-radius: 10px;
+    border: 1px solid black;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 30vw;
+    height: 10vw;
+    background-color: #f8f9fa
+}
+
+.erros ul {
+    list-style: none
+}
+
+.erros h2 {
+    color: red
+}
+
+.erros .fechar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    color: white;
+    background-color: red;
+    padding: 0.25vw;
+    width: 2vw;
+    font-weight: bolder;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000
+    }
+
+.erros .fechar:hover {
+    cursor: pointer
+}
+
+#remover {
+background-color: red;
+color: white;
+cursor: pointer;
+text-align: center
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.or" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Lista de produtos</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Lista dos produtos</h1>
+        <div class ="alert alert-info" role="alert" th:if="${#lists.isEmpty(produtos)}">
+            Nenhum produto cadastrado ainda...
+        </div>
+        <table class="table table-striped" th:unless="${#lists.isEmpty(produtos)}">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <td>Categoria</td>
+                    <td>Estoque</td>
+                    <td>Ações</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="produto , iterStat:${produtos}">
+                    <td th:text="${iterStat.count}">.</td>
+                    <td th:text="${produto.nome}">.</td>
+                    <td th:text="${produto.preco}">0,00</td>
+                    <td th:text="${produto.categoria}">.</td>
+                    <td th:text="${produto.estoque}"></td>
+                    <td id="remover" th:onclick="|removerItem(${iterStat.index})|">Remover item</td> <!-- passar o indice pra remover -->
+                </tr> <!-- "|" é pra isnerir item dentro da string sem considerar literal, como esse atributo de objeto ai -->
+            </tbody>
+        </table>
+        <p th:if="${produtos != null}" th:text=" 'Total de produtos: ' + ${#lists.size(produtos)}"></p>
+        <p th:if="${produtos == null}">0</p>
+        <a  class="btn btn-primary" href="/cadastrar">+ Cadastrar novo produto</a>
+    </div>
+</body>
+<!-- tentei usar put e delete nesse e no outro e n foram. Deu erro 405 -->
+<script>
+    function removerItem(indice) {
+        fetch('/removerItem/' + indice, {method: 'POST'}).then(()=> window.location.reload());
+    }
+</script>
+</html>

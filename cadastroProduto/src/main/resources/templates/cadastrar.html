@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.or" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Cadastrar produto</title>
+</head>
+<body>
+<main class="conteudo-principal">
+    <h1 class="display-3 mb-4">Olá,Ronaldo</h1>
+
+    <form th:action="@{/cadastrar}" th:object="${produto}" method="post">
+        <div>
+            <label for="nome">Nome</label>
+            <input type="text" th:field="*{nome}" placeholder="Ex: Notebook" required>
+        </div>
+        <div>
+            <label for="preco">Preço</label>
+            <input type="number" th:field="*{preco}" placeholder="Ex: 400.90" required>
+        </div>
+        <div>
+            <label for="categoria">categoria</label>
+            <select th:field="*{categoria}">
+                <option value="Eletrônicos">Eletrônicos</option>
+                <option value="Roupas e Calçados">Roupas e Calçados</option>
+                <option value="Casa e Decoração">Casa e Decoração</option>
+                <option value="Esporte e Lazer">Esporte e lazer</option>
+                <option value="Beleza e Cuidados Pessoais">Beleza e Cuidados Pessoais</option>
+                <option value="Alimentos">Alimentos</option>
+            </select>
+        </div>
+        <div>
+            <label for="estoque">Estoque</label>
+            <input type="number" th:field="*{estoque}" placeholder="0, 1...." required>
+        </div>
+        <input type="submit" value="Cadastrar">
+    </form>
+        <!-- sintaxe estranha, mas é essa aí -->
+    <div th:if="${not #lists.isEmpty(erros)}" class="erros" >
+            <div class="fechar" th:onclick="fecharModal()">X</div>
+            <h2>Algo deu errado!</h2>
+            <ul>
+                <li th:each="erro : ${erros}" th:text="${erro}"></li>
+            </ul>
+    </div>
+    <a href="/lista">Ver Lista de Produtos</a>
+
+<!-- chamando o endpoint com js -->
+    <script>
+        function fecharModal() {
+           fetch('/limparLista', {method: 'POST'}).then(()=> window.location.reload());
+    }
+    </script>
+</main>
+</body>
+</html>
